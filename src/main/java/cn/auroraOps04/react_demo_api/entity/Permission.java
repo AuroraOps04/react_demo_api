@@ -1,5 +1,6 @@
 package cn.auroraOps04.react_demo_api.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
@@ -16,7 +17,7 @@ import java.util.Date;
 @ApiModel("权限实体类")
 @TableName("permission")
 public class Permission  extends BaseEntity{
-    @TableId("id")
+    @TableId(value = "id", type = IdType.AUTO)
     @ApiModelProperty("权限id")
     private Long id;
     @ApiModelProperty("权限描述")

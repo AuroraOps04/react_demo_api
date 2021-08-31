@@ -328,7 +328,7 @@ public class RedisUtil {
 	 * @return 之前已经存在返回false,不存在返回true
 	 */
 	public boolean multiSetIfAbsent(Map<String, String> maps) {
-		return redisTemplate.opsForValue().multiSetIfAbsent(maps);
+		return Boolean.TRUE.equals(redisTemplate.opsForValue().multiSetIfAbsent(maps));
 	}
 
 	/**

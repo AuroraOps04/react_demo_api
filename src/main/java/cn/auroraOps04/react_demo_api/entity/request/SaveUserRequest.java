@@ -15,7 +15,7 @@ public class SaveUserRequest {
     @NotBlank(message = "用户名不能为空")
 //    @Min(value = 6, message = "用户名最短为6位")
 //    @Max(value = 16, message = "用户名最长为16位")
-    private String username;
+    private String name;
 
     @ApiModelProperty("密码")
     @NotBlank(message = "密码不能为空")
@@ -26,25 +26,25 @@ public class SaveUserRequest {
     public SaveUserRequest() {
     }
 
-    public SaveUserRequest(String username, String password) {
-        this.username = username;
+    public SaveUserRequest(String name, String password) {
+        this.name = name;
         this.password = password;
     }
 
     @Override
     public String toString() {
         return "SaveUserRequest{" +
-                "username='" + username + '\'' +
+                "username='" + name + '\'' +
                 ", password='" + password + '\'' +
                 '}';
     }
 
-    public String getUsername() {
-        return username;
+    public String getName() {
+        return name;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getPassword() {

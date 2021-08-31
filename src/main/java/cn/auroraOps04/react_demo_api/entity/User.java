@@ -1,5 +1,6 @@
 package cn.auroraOps04.react_demo_api.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
@@ -16,7 +17,7 @@ import java.util.Date;
 @ApiModel(value = "用户 api", description = "存放着用户信息")
 @TableName("user")
 public class User extends BaseEntity {
-    @TableId
+    @TableId(type = IdType.AUTO)
     @ApiModelProperty(value = "用户主键")
     private Long id;
     @ApiModelProperty(value = "用户名")

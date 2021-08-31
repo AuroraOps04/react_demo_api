@@ -48,7 +48,7 @@ public class UserController {
     public ApiResponse login(@RequestBody @Valid LoginRequest loginRequest){
         //TODO: 验证码处理
         String password = encrypt(loginRequest.getPassword());
-        String username = loginRequest.getUsername();
+        String username = loginRequest.getName();
         User user = userService.selectByUsername(username);
         if(null == user || !StrUtil.equals(user.getPassword(), password)){
             return  ApiResponseUtil.badRequest("用户名密码错误");
@@ -63,7 +63,7 @@ public class UserController {
     @PostMapping
     @ApiOperation("注册接口")
     public ApiResponse save(@RequestBody @Valid SaveUserRequest saveUserRequest){
-        User user = userService.selectByUsername(saveUserRequest.getUsername());
+        User user = userService.selectByUsername(saveUserRequest.getName());
         if(null != user){
             return ApiResponseUtil.badRequest("用户名已存在");
         }

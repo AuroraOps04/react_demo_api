@@ -86,17 +86,17 @@ public class ShiroRealm extends AuthorizingRealm {
         String username = JWTUtils.getUsername(token); //从token中获取username
         Long userId = JWTUtils.getUserId(token);    //从token中获取userId
 
-        // 通过redis查看token是否过期
-        String ip = request.getRemoteAddr();
-        String TokenInRedis = redisUtil.get(Constant.RDA_TOKEN_CACHE + token + StringPool.UNDERSCORE + ip);
-        if (!token.equalsIgnoreCase(TokenInRedis)) {
-            throw new AuthenticationException("token已经过期");
-        }
-
-        // 如果找不到，说明已经失效
-        if (StringUtils.isBlank(TokenInRedis)) {
-            throw new AuthenticationException("token已经过期");
-        }
+//        // 通过redis查看token是否过期
+//        String ip = request.getRemoteAddr();
+//        String TokenInRedis = redisUtil.get(Constant.RDA_TOKEN_CACHE + token + StringPool.UNDERSCORE + ip);
+//        if (!token.equalsIgnoreCase(TokenInRedis)) {
+//            throw new AuthenticationException("token已经过期");
+//        }
+//
+//        // 如果找不到，说明已经失效
+//        if (StringUtils.isBlank(TokenInRedis)) {
+//            throw new AuthenticationException("token已经过期");
+//        }
 
         if (StringUtils.isBlank(username)) {
             throw new AuthenticationException("token校验不通过");

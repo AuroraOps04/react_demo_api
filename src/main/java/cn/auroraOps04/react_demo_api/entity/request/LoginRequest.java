@@ -19,7 +19,7 @@ public class LoginRequest {
     @NotBlank(message = "用户名不能为空")
 //    @Min(value = 6, message = "用户名最短为6位")
 //    @Max(value = 16, message = "用户名最长为16位")
-    private String username;
+    private String name;
 
     @ApiModelProperty("密码")
     @NotBlank(message = "密码不能为空")
@@ -31,24 +31,24 @@ public class LoginRequest {
     }
 
     public LoginRequest(String username, String password) {
-        this.username = username;
+        this.name = username;
         this.password = password;
     }
 
     @Override
     public String toString() {
         return "LoginRequest{" +
-                "username='" + username + '\'' +
+                "username='" + name + '\'' +
                 ", password='" + password + '\'' +
                 '}';
     }
 
-    public String getUsername() {
-        return username;
+    public String getName() {
+        return name;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setName(String username) {
+        this.name = username;
     }
 
     public String getPassword() {
