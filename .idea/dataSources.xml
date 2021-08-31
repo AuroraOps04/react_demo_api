@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="react_demo@localhost" uuid="a6311abc-a051-4312-b293-73261b7cf3f3">
+    <data-source source="LOCAL" name="MySQL - react_demo_api@192.168.10.50" uuid="79fb118b-d82f-4811-a028-c6bfa2589560">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://localhost:3306/react_demo</jdbc-url>
+      <jdbc-url>jdbc:mysql://192.168.10.50:3306/react_demo_api?useSSL=false</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>

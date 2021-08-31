@@ -1,7 +1,11 @@
 package cn.auroraOps04.react_demo_api.entity;
 
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+
+import java.util.Date;
 
 /**
  * @author AuroraOps04
@@ -10,9 +14,11 @@ import io.swagger.annotations.ApiModelProperty;
  */
 
 @ApiModel(value = "用户 api", description = "存放着用户信息")
-public class User {
+@TableName("user")
+public class User extends BaseEntity {
+    @TableId
     @ApiModelProperty(value = "用户主键")
-    private Integer id;
+    private Long id;
     @ApiModelProperty(value = "用户名")
     private String name;
     @ApiModelProperty(value = "用户密码")
@@ -37,7 +43,8 @@ public class User {
     public User() {
     }
 
-    public User(Integer id, String name, String password, Character sex, String email, String phone, String blog, String motto, String github, String qq, String avatar) {
+    public User(Date createAt, Date updateAt, Long createBy, Long updateBy, Long id, String name, String password, Character sex, String email, String phone, String blog, String motto, String github, String qq, String avatar) {
+        super(createAt, updateAt, createBy, updateBy);
         this.id = id;
         this.name = name;
         this.password = password;
@@ -54,7 +61,11 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
+                "createAt=" + createAt +
+                ", updateAt=" + updateAt +
+                ", createBy=" + createBy +
+                ", updateBy=" + updateBy +
+                ", id=" + id +
                 ", name='" + name + '\'' +
                 ", password='" + password + '\'' +
                 ", sex=" + sex +
@@ -68,11 +79,11 @@ public class User {
                 '}';
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
