@@ -2,6 +2,7 @@ package cn.auroraOps04.react_demo_api.filter;
 
 import cn.auroraOps04.react_demo_api.security.JWTToken;
 import cn.hutool.json.JSONObject;
+import cn.hutool.log.Log;
 import org.apache.shiro.authz.UnauthorizedException;
 import org.apache.shiro.util.AntPathMatcher;
 import org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter;
@@ -82,13 +83,15 @@ public class JWTFilter extends BasicHttpAuthenticationFilter {
     protected boolean isLoginAttempt(ServletRequest request, ServletResponse response) {
         HttpServletRequest req = (HttpServletRequest) request;
         String token = req.getHeader(TOKEN);
+
         return token != null;
     }
 
     @Override
     protected boolean executeLogin(ServletRequest request, ServletResponse response) {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-        String token = httpServletRequest.getHeader(TOKEN).replaceFirst("^Bear $", ""); //得到token
+        String token = httpServletRequest.getHeader(TOKEN).replaceFirst("Bear ", ""); //得到token
+        LOGGER.warn(token);
         JWTToken jwtToken = new JWTToken(token); // 解密token
         try {
             // 提交给realm进行登入，如果错误他会抛出异常并被捕获

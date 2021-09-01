@@ -12,6 +12,7 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.digest.DigestUtil;
 import cn.hutool.json.JSONObject;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.data.domain.AfterDomainEventPublication;
 import org.springframework.web.bind.annotation.*;
@@ -45,8 +46,9 @@ public class UserController {
     }
 
     @GetMapping("/")
+    @ApiImplicitParam(name = "Authorization", required = true,paramType = "header",dataType = "String")
     public ApiResponse<List<User>> list() {
-        return null;
+        return ApiResponseUtil.success(userService.listByCondition(null));
     }
 
     @PostMapping("/login")
