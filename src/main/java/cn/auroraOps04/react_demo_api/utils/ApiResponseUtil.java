@@ -10,34 +10,35 @@ import cn.auroraOps04.react_demo_api.entity.response.ApiResponseCode;
  */
 
 public class ApiResponseUtil {
-    public static ApiResponse success(){
-        return new ApiResponse(ApiResponseCode.SUCCESS);
+
+    public static ApiResponse<Object> success(){
+        return new ApiResponse<>(ApiResponseCode.SUCCESS);
     }
 
-    public static ApiResponse success(Boolean success){
-        return new ApiResponse(ApiResponseCode.SUCCESS, success);
+    public static ApiResponse<Object> success(Boolean success){
+        return new ApiResponse<>(ApiResponseCode.SUCCESS, success);
     }
 
-    public static ApiResponse success(Boolean success, String message){
-        return new ApiResponse(ApiResponseCode.SUCCESS.getCode(), success, message);
+    public static ApiResponse<Object> success(Boolean success, String message){
+        return new ApiResponse<>(ApiResponseCode.SUCCESS.getCode(), success, message);
     }
 
-    public static ApiResponse success(Object data){
-        return new ApiResponse(ApiResponseCode.SUCCESS, data);
+    public static <T> ApiResponse<T> success(T data){
+        return new ApiResponse<>(ApiResponseCode.SUCCESS, data);
     }
 
-    public static ApiResponse success(Boolean success, Object data){
-        return new ApiResponse(ApiResponseCode.SUCCESS, success, data);
+    public static <T> ApiResponse<T> success(T data, Boolean success){
+        return new ApiResponse<>(ApiResponseCode.SUCCESS, success, data);
     }
 
-    public static ApiResponse created(){
-        return new ApiResponse(ApiResponseCode.CREATED);
+    public static ApiResponse<Object> created(){
+        return new ApiResponse<>(ApiResponseCode.CREATED);
     }
 
-    public static ApiResponse badRequest(){
-        return new ApiResponse(ApiResponseCode.BAD_REQUEST, false);
+    public static ApiResponse<Object> badRequest(){
+        return new ApiResponse<>(ApiResponseCode.BAD_REQUEST, false);
     }
-    public static ApiResponse badRequest(String message){
-        return new ApiResponse(ApiResponseCode.BAD_REQUEST.getCode(), false, message);
+    public static ApiResponse<Object> badRequest(String message){
+        return new ApiResponse<>(ApiResponseCode.BAD_REQUEST.getCode(), false, message);
     }
 }

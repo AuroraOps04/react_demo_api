@@ -9,6 +9,8 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author AuroraOps04
  * @date 2021-08-31 09:24:26
@@ -21,5 +23,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         LambdaQueryWrapper<User> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(User::getName, username);
         return baseMapper.selectOne(wrapper);
+    }
+
+    @Override
+    public List<User> listByCondition(Wrapper<User> condition) {
+        return baseMapper.selectList(condition);
     }
 }

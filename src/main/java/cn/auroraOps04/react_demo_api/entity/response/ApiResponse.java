@@ -9,7 +9,7 @@ import io.swagger.annotations.ApiModelProperty;
  * @description 统一响应体封装
  */
 @ApiModel("统一响应体")
-public class ApiResponse {
+public class ApiResponse<T> {
     @ApiModelProperty("响应码")
     private Integer code;
     @ApiModelProperty("是否成功")
@@ -17,7 +17,7 @@ public class ApiResponse {
     @ApiModelProperty("提示消息")
     private String msg;
     @ApiModelProperty("响应数据")
-    private Object data;
+    private T data;
 
     public ApiResponse() {
     }
@@ -34,14 +34,14 @@ public class ApiResponse {
         this.success = success;
     }
 
-    public ApiResponse(ApiResponseCode responseCode, Object data){
+    public ApiResponse(ApiResponseCode responseCode, T data){
         this.code = responseCode.getCode();
         this.msg = responseCode.getMessage();
         this.success = true;
         this.data = data;
     }
 
-    public ApiResponse(ApiResponseCode responseCode, Boolean success, Object data){
+    public ApiResponse(ApiResponseCode responseCode, Boolean success, T data){
         this.code = responseCode.getCode();
         this.msg = responseCode.getMessage();
         this.success = success;
@@ -54,7 +54,7 @@ public class ApiResponse {
         this.msg = msg;
     }
 
-    public ApiResponse(Integer code, Boolean success, String msg, Object data) {
+    public ApiResponse(Integer code, Boolean success, String msg, T data) {
         this.code = code;
         this.success = success;
         this.msg = msg;
@@ -95,11 +95,11 @@ public class ApiResponse {
         this.msg = msg;
     }
 
-    public Object getData() {
+    public T getData() {
         return data;
     }
 
-    public void setData(Object data) {
+    public void setData(T data) {
         this.data = data;
     }
 }

@@ -1,7 +1,10 @@
 package cn.auroraOps04.react_demo_api.service;
 
 import cn.auroraOps04.react_demo_api.entity.User;
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.extension.service.IService;
+
+import java.util.List;
 
 /**
  * @author AuroraOps04
@@ -10,4 +13,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IUserService extends IService<User> {
     User selectByUsername(String username);
+
+    List<User> listByCondition(Wrapper<User> condition);
 }

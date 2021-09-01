@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
+import java.util.List;
 
 /**
  * @author AuroraOps04
@@ -33,53 +34,58 @@ public class UserController {
     private IUserService userService;
 
 
-    @GetMapping("/{id}")
+    @GetMapping("/{id:\\d+}")
     @ApiOperation(value = "通过id获取用户")
-    public ApiResponse getById(@PathVariable("id") @Valid  @NotEmpty Integer id){
+    public ApiResponse<User> getById(@PathVariable("id") Integer id) {
         User user = userService.getById(id);
-        if(null == user){
-            return ApiResponseUtil.success(false);
+        if (null == user) {
+            return ApiResponseUtil.success(null, false);
         }
         return ApiResponseUtil.success(user);
     }
 
+    @GetMapping("/")
+    public ApiResponse<List<User>> list() {
+        return null;
+    }
+
     @PostMapping("/login")
     @ApiOperation("登录接口")
-    public ApiResponse login(@RequestBody @Valid LoginRequest loginRequest){
+    public ApiResponse<Object> login(@RequestBody @Valid LoginRequest loginRequest) {
         //TODO: 验证码处理
         String password = encrypt(loginRequest.getPassword());
         String username = loginRequest.getName();
         User user = userService.selectByUsername(username);
-        if(null == user || !StrUtil.equals(user.getPassword(), password)){
-            return  ApiResponseUtil.badRequest("用户名密码错误");
+        if (null == user || !StrUtil.equals(user.getPassword(), password)) {
+            return ApiResponseUtil.badRequest("用户名密码错误");
         }
         // 存日志
         String token = JWTUtils.sign(username, password, user.getId());
         JSONObject data = new JSONObject();
         data.put("Authorization", token);
-        return ApiResponseUtil.success(true, data);
+        return ApiResponseUtil.success(data, true);
     }
 
     @PostMapping
     @ApiOperation("注册接口")
-    public ApiResponse save(@RequestBody @Valid SaveUserRequest saveUserRequest){
+    public ApiResponse<Object> save(@RequestBody @Valid SaveUserRequest saveUserRequest) {
         User user = userService.selectByUsername(saveUserRequest.getName());
-        if(null != user){
+        if (null != user) { // 校验用户名
             return ApiResponseUtil.badRequest("用户名已存在");
-        }
+        } // 校验邮箱
         User saveUser = new User();
         BeanUtil.copyProperties(saveUserRequest, saveUser);
         saveUser.setPassword(encrypt(saveUser.getPassword()));
         boolean saved = userService.save(saveUser);
-        if(saved){
+        if (saved) {
             return ApiResponseUtil.created();
-        }else{
+        } else {
             return ApiResponseUtil.success(false, "保存用户失败");
         }
     }
 
 
-    private String encrypt(String password){
+    private String encrypt(String password) {
         return DigestUtil.sha256Hex(password);
     }
 }
