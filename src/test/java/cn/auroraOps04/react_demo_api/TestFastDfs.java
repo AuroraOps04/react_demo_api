@@ -18,7 +18,7 @@ import java.io.IOException;
 @RunWith(SpringRunner.class)
 public class TestFastDfs {
     @Test
-    public void testdfs() throws IOException, MyException {
+    public void testFdfs() throws IOException, MyException {
         ClientGlobal.init("C:\\Users\\coderplus-tr\\.code\\IdeaProjects\\react-demo-api\\src\\main\\resources\\fdfs_client.conf");
         TrackerClient trackerClient = new TrackerClient();
         TrackerServer trackerServer = trackerClient.getTrackerServer();

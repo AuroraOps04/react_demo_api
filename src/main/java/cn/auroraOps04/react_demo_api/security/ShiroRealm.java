@@ -1,6 +1,5 @@
 package cn.auroraOps04.react_demo_api.security;
 
-import cn.auroraOps04.react_demo_api.core.Constant;
 import cn.auroraOps04.react_demo_api.entity.Permission;
 import cn.auroraOps04.react_demo_api.entity.Role;
 import cn.auroraOps04.react_demo_api.entity.User;
@@ -8,7 +7,6 @@ import cn.auroraOps04.react_demo_api.service.IPermissionService;
 import cn.auroraOps04.react_demo_api.service.IRoleService;
 import cn.auroraOps04.react_demo_api.service.IUserService;
 import cn.auroraOps04.react_demo_api.utils.RedisUtil;
-import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -20,7 +18,6 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 import cn.auroraOps04.react_demo_api.utils.JWTUtils;
-import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Set;

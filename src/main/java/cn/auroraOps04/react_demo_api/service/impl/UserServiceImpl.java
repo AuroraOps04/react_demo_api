@@ -1,6 +1,8 @@
 package cn.auroraOps04.react_demo_api.service.impl;
 
 import cn.auroraOps04.react_demo_api.entity.User;
+import cn.auroraOps04.react_demo_api.entity.request.GetUserListRequest;
+import cn.auroraOps04.react_demo_api.entity.vo.UserListVo;
 import cn.auroraOps04.react_demo_api.mapper.UserMapper;
 import cn.auroraOps04.react_demo_api.service.IUserService;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
@@ -26,7 +28,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     }
 
     @Override
-    public List<User> listByCondition(Wrapper<User> condition) {
-        return baseMapper.selectList(condition);
+    public List<UserListVo> listByCondition(GetUserListRequest condition) {
+        return baseMapper.listByCondition(condition);
     }
 }

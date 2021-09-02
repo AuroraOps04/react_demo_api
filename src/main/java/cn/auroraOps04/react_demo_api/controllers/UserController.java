@@ -1,8 +1,11 @@
 package cn.auroraOps04.react_demo_api.controllers;
 
+import cn.auroraOps04.react_demo_api.core.controller.BaseController;
 import cn.auroraOps04.react_demo_api.entity.User;
+import cn.auroraOps04.react_demo_api.entity.request.GetUserListRequest;
 import cn.auroraOps04.react_demo_api.entity.request.LoginRequest;
 import cn.auroraOps04.react_demo_api.entity.request.SaveUserRequest;
+import cn.auroraOps04.react_demo_api.entity.response.ApiPageResponse;
 import cn.auroraOps04.react_demo_api.entity.response.ApiResponse;
 import cn.auroraOps04.react_demo_api.service.IUserService;
 import cn.auroraOps04.react_demo_api.utils.ApiResponseUtil;
@@ -14,13 +17,12 @@ import cn.hutool.json.JSONObject;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.data.domain.AfterDomainEventPublication;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
-import javax.validation.constraints.NotEmpty;
-import java.util.List;
+import java.sql.Wrapper;
+import java.util.Date;
 
 /**
  * @author AuroraOps04
@@ -30,7 +32,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/user")
 @Api(value = "用户相关api")
-public class UserController {
+public class UserController extends BaseController {
     @Resource
     private IUserService userService;
 
@@ -46,9 +48,11 @@ public class UserController {
     }
 
     @GetMapping("/")
+    @ApiOperation("用户列表, 包含权限和角色")
     @ApiImplicitParam(name = "Authorization", required = true,paramType = "header",dataType = "String")
-    public ApiResponse<List<User>> list() {
-        return ApiResponseUtil.success(userService.listByCondition(null));
+    @SuppressWarnings({ "rawtypes" })
+    public ApiPageResponse list(@Valid GetUserListRequest params) {
+        return getPageData(userService.listByCondition(params));
     }
 
     @PostMapping("/login")
@@ -75,9 +79,13 @@ public class UserController {
         if (null != user) { // 校验用户名
             return ApiResponseUtil.badRequest("用户名已存在");
         } // 校验邮箱
+
+        // 准备数据
         User saveUser = new User();
         BeanUtil.copyProperties(saveUserRequest, saveUser);
         saveUser.setPassword(encrypt(saveUser.getPassword()));
+        saveUser.setCreateAt(new Date());
+
         boolean saved = userService.save(saveUser);
         if (saved) {
             return ApiResponseUtil.created();

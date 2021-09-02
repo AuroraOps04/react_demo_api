@@ -1,8 +1,12 @@
 package cn.auroraOps04.react_demo_api.mapper;
 
 import cn.auroraOps04.react_demo_api.entity.User;
+import cn.auroraOps04.react_demo_api.entity.request.GetUserListRequest;
+import cn.auroraOps04.react_demo_api.entity.vo.UserListVo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 /**
  * @author AuroraOps04
@@ -11,4 +15,5 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface UserMapper extends BaseMapper<User> {
+    List<UserListVo> listByCondition(GetUserListRequest condition);
 }

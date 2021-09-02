@@ -3,6 +3,7 @@ package cn.auroraOps04.react_demo_api.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -19,32 +20,39 @@ import java.util.Date;
 public class User extends BaseEntity {
     @TableId(type = IdType.AUTO)
     @ApiModelProperty(value = "用户主键")
-    private Long id;
+    protected Long id;
     @ApiModelProperty(value = "用户名")
-    private String name;
+    protected String name;
     @ApiModelProperty(value = "用户密码")
-    private String password;
+    protected String password;
     @ApiModelProperty(value = "用户性别(M: 男, F: 女)")
-    private Character sex;
+    protected Character sex;
     @ApiModelProperty(value = "用户邮箱地址")
-    private String email;
+    protected String email;
     @ApiModelProperty(value = "用户手机号码")
-    private String phone;
+    protected String phone;
     @ApiModelProperty(value = "用户博客地址")
-    private String blog;
+    protected String blog;
     @ApiModelProperty(value = "用户个人说明")
-    private String motto;
+    protected String motto;
     @ApiModelProperty(value = "用户github地址")
-    private String github;
+    protected String github;
     @ApiModelProperty(value = "用户qq账号")
-    private String qq;
+    protected String qq;
     @ApiModelProperty(value = "用户头像访问地址")
-    private String avatar;
+    protected String avatar;
+    @ApiModelProperty(value = "用户上次登录IP")
+    protected String lastLoginIp;
+    @ApiModelProperty(value = "用户上次登录时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    protected String lastLoginTime;
+    @ApiModelProperty(value = "用户状态")
+    protected Integer status;
 
     public User() {
     }
 
-    public User(Date createAt, Date updateAt, Long createBy, Long updateBy, Long id, String name, String password, Character sex, String email, String phone, String blog, String motto, String github, String qq, String avatar) {
+    public User(Date createAt, Date updateAt, Long createBy, Long updateBy, Long id, String name, String password, Character sex, String email, String phone, String blog, String motto, String github, String qq, String avatar, String lastLoginIp, String lastLoginTime, Integer status) {
         super(createAt, updateAt, createBy, updateBy);
         this.id = id;
         this.name = name;
@@ -57,6 +65,9 @@ public class User extends BaseEntity {
         this.github = github;
         this.qq = qq;
         this.avatar = avatar;
+        this.lastLoginIp = lastLoginIp;
+        this.lastLoginTime = lastLoginTime;
+        this.status = status;
     }
 
     @Override
@@ -77,6 +88,9 @@ public class User extends BaseEntity {
                 ", github='" + github + '\'' +
                 ", qq='" + qq + '\'' +
                 ", avatar='" + avatar + '\'' +
+                ", lastLoginIp='" + lastLoginIp + '\'' +
+                ", lastLoginTime='" + lastLoginTime + '\'' +
+                ", status=" + status +
                 '}';
     }
 
@@ -160,4 +174,35 @@ public class User extends BaseEntity {
         this.qq = qq;
     }
 
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public String getLastLoginIp() {
+        return lastLoginIp;
+    }
+
+    public void setLastLoginIp(String lastLoginIp) {
+        this.lastLoginIp = lastLoginIp;
+    }
+
+    public String getLastLoginTime() {
+        return lastLoginTime;
+    }
+
+    public void setLastLoginTime(String lastLoginTime) {
+        this.lastLoginTime = lastLoginTime;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
 }
